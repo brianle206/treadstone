@@ -8,6 +8,6 @@ class CreateTreadstoneEntrySearchData < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-     execute 'create index idx_search_data on wellspring_entries_search_data using gin(search_data)'
+     execute 'create index idx_search_data on treadstone_entry_search_data using gin(search_data)'
   end
 end
