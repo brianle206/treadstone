@@ -35,7 +35,7 @@ module Treadstone
       end
     end
 
-    def destroy
+    def destroy(entry_params)
       @entry.destroy
       redirect_to content_entries_path, notice: 'Entry was successfully destroyed.'
     end
