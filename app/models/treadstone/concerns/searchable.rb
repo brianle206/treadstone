@@ -1,34 +1,37 @@
 module Treadstone
-	module Concerns
-		module Searchable
-			extend ActiveSupport::Concern
+  module Concerns
+    module Searchable
+      extend ActiveSupport::Concern
 
-			included do 
-				has_many :search_data, class_name: 'Treadstone::EntrySearchData'
-				after_save :update_search_index
-			end
+      included do
+        has_many :search_data, class_name: 'Treadstone::EntrySearchData'
 
-			module ClassMethods
-				def searchable_attributes(*args)
-					@searchable_attributes = args if args.any?
-					@searchable_attributes ||= []
-				end
+        after_save :update_search_index
+      end
 
-				def search(query)
-					select('DISTINCT ON (entry_id) entry_id, treadstone_entries.*').joins(:search_data).where("search_data @@ plainto_tsquery('english', :q)", q: query).order("entry_id, ts_rank(search_data, plainto_tsquery('%s')) desc" % send(:sanitize_sql, query))
-				end
-			end
+      module ClassMethods
+        def searchable_attributes(*args)
+          @searchable_attributes = args if args.any?
+          @searchable_attributes ||= []
+        end
 
-			def search_attributes
-				self.class.search_attributes.each_with_object({}) do |attr_name, search_data|
-					search_data[attr_name] = send(attr_name)
-				end
-			end
+        def search(query)
+          select('DISTINCT ON (entry_id) entry_id, treadstone_entries.*').
+            joins(:search_data).
+            where("search_data @@ plainto_tsquery('english', :q)", q: query).
+            order("entry_id, ts_rank(search_data, plainto_tsquery('%s')) desc" % send(:sanitize_sql, query))
+        end
+      end
 
-			def update_search_index
-				Treadstone::EntrySearchData.index_entry_data(id, search_attributes)
-			end
+      def search_attributes
+        self.class.searchable_attributes.each_with_object({}) do |attr_name, search_data|
+          search_data[attr_name] = send(attr_name)
+        end
+      end
 
-		end
-	end
+      def update_search_index
+        Treadstone::EntrySearchData.index_entry_data(id, search_attributes)
+      end
+    end
+  end
 end

@@ -1,4 +1,5 @@
-<%= simple_form_for(@entry, as: :entry, url: entries_path) do |f| %>
+<div class="col-6">
+  <%= simple_form_for(@entry, as: :entry, url: @entry.persisted? ? content_entry_path(@entry) : entries_path) do |f| %>
     <%= f.hidden_field :type, value: @entry.type %>
 
     <%= f.input :title %>
@@ -11,7 +12,10 @@
     <%= f.input :author_name %>
     <%= f.input :published_at %>
 
-    <%= f.submit "Save" %>
+    <%= f.submit "Save", class: "btn btn-primary" %>
   <% end %>
+</div>
 
+<div class="col-6">
   <div id="live-preview" data-preview-url="<%= preview_path %>"></div>
+</div>

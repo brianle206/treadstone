@@ -1,7 +1,7 @@
+
 var Treadstone = Treadstone || {};
 
 Treadstone.Utils = {
-  // Source: https://remysharp.com/2010/07/21/throttling-function-calls
   debounce: function(fn, delay) {
     var timer = null;
     return function () {
