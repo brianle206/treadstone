@@ -1,3 +1,4 @@
 = Treadstone
 
-This project rocks and uses MIT-LICENSE.
+First iteration completed 8/11/2016 
+Next set is to add associations to entries 

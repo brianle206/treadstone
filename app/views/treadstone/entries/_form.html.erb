@@ -4,8 +4,10 @@
 
     <%= f.input :title %>
 
-    <% @entry.class.content_attributes.each do |attr_name, attr_type| %>
-      <%= f.input attr_name, as: attr_type %>
+    <% @entry.class.content_attributes.each do |attr_name, attr_type |  %>
+      
+      <%= f.input attr_name, as: attr_type, class: "markdown-toolbar" %>
+
     <% end %>
 
     <%= f.input :slug %>
@@ -19,3 +21,6 @@
 <div class="col-6">
   <div id="live-preview" data-preview-url="<%= preview_path %>"></div>
 </div>
+<!-- <div class='col-6'>
+  <div id='myEditor'>test test</textarea>
+</div> -->

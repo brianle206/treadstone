@@ -5,5 +5,6 @@ module Treadstone
     require 'font-awesome-rails'
     require 'redcarpet'
     require 'pygments'
+    
   end
 end

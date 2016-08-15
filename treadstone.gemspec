@@ -26,10 +26,9 @@ Gem::Specification.new do |s|
   s.add_dependency "autoprefixer-rails"
   s.add_dependency "simple_form", "~>3.1.0"
 
-
   s.add_dependency 'pygments.rb'
   s.add_dependency 'redcarpet'
-  s.add_dependency "rails", "~> 4.2.7"
+  s.add_dependency "rails", "~> 4.2.6"
 
   s.add_development_dependency "pg"
 end
